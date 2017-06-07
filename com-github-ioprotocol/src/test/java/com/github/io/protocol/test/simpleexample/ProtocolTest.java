@@ -12,7 +12,7 @@ public class ProtocolTest {
     private int header;
     @Number(width = 8)
     private int version;
-    @Number(width = 16)
+    @Number(width = 16, order = ByteOrder.BigEndian)
     private int contentLength;
     @AsciiString(length = "getContentLength")
     private String asccString;

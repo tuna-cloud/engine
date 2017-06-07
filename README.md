@@ -24,7 +24,7 @@ byte[] buf = engine.encode(bean);
 ```
 
 ## Simple Example
-Now we use a simple binary protocol begin out travel.<br>
+Now we use a simple binary protocol begin our travel.<br>
 The binary protocol like this:<br>
 ```java
 +--------+---------+--------+----+-----------+
@@ -44,7 +44,7 @@ public class ProtocolTest {
     private int header;
     @Number(width = 8)
     private int version;
-    @Number(width = 16)
+    @Number(width = 16, order = ByteOrder.BigEndian)
     private int contentLength;
     @AsciiString(length = "getContentLength")
     private String asccString;
@@ -98,7 +98,7 @@ public void test() throws Exception {
 	byte[] buf = engine.encode(test);
 	System.out.println(HexStringUtil.toHexString(buf));
 	// print msg:
-	// 2882010C0048454C4C4F2C20574F524C44
+	// 288201000C48454C4C4F2C20574F524C44
 
 	// ok, now we decode the ProtocolTest object from byte[] array.
 	ProtocolTest testDecode = engine.decode(buf, ProtocolTest.class);
