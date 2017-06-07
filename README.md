@@ -112,9 +112,9 @@ public void test() throws Exception {
 For more usage examples check the tests.
 Please check the documention. There are lots of cool things you should know, including information about connection pooling.
 ## Documention
-- [More docs](https://github.com/ioprotocol/engine/documention/howtouse.md)
-- [Changelog](https://github.com/ioprotocol/engine/documention/changelog.md)
-- [Important note](https://github.com/ioprotocol/engine/documention/important.md)
+- [More docs](https://github.com/ioprotocol/engine/blob/master/documention/howtouse.md)
+- [Changelog](https://github.com/ioprotocol/engine/blob/master/documention/changelog.md)
+- [Important note](https://github.com/ioprotocol/engine/blob/master/documention/important.md)
 
 ## Submit BUG
 While you find bug or have good idea, welcome email to me.
