@@ -34,8 +34,8 @@ public class TestDouble {
         testDouble.setV3(12.35d);
         testDouble.setV4(12.35d);
         BeanMap beanMap = BeanMap.create(testDouble);
-        double v = (double)beanMap.get("v1");
-        v = (double)beanMap.get("v2");
+        double v = (float)beanMap.get("v1");
+        v = (Float)beanMap.get("v2");
         v = (Double)beanMap.get("v3");
         v = (Double)beanMap.get("v4");
     }

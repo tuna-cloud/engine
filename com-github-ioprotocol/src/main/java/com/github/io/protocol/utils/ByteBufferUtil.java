@@ -32,7 +32,7 @@ public class ByteBufferUtil {
      * Reserve hex string
      *
      * @param tempStr reserve hex string order
-     * @return
+     * @return The reserved hex string
      */
     public static String reserveOrder(String tempStr) {
         return (new StringBuffer(tempStr)).reverse().toString();
@@ -59,16 +59,20 @@ public class ByteBufferUtil {
     }
 
     /**
-     * @param value
-     * @return
+     * Reserve 16 bit unsigned number
+     *
+     * @param value The number to be reserved
+     * @return The reserved number
      */
     public static short reserveOrder(short value) {
         return Short.reverseBytes(value);
     }
 
     /**
-     * @param value
-     * @return
+     * Reserve 24 bit unsigned number
+     *
+     * @param value The number to be reserved
+     * @return The reserved number
      */
     public static int reserveOrder24bit(int value) {
         int ret = 0;
@@ -81,8 +85,10 @@ public class ByteBufferUtil {
     }
 
     /**
-     * @param value
-     * @return
+     * Reserve 32 bit unsigned number
+     *
+     * @param value The number to be reserved
+     * @return The reserved number
      */
     public static int reserveOrder(int value) {
         int ret = 0;
@@ -96,6 +102,12 @@ public class ByteBufferUtil {
         return ret;
     }
 
+    /**
+     * Reserve 64 bit unsigned number
+     *
+     * @param value The number to be reserved
+     * @return The reserved number
+     */
     public static long reserveOrder(long value) {
         long ret = 0;
         ret = ret | (value & 0xFF);
@@ -124,16 +136,21 @@ public class ByteBufferUtil {
     }
 
     /**
-     * @param d
-     * @return
+     * Translate java.utils.Date to byte array
+     *
+     * @param d The Date to be translate
+     * @return The byte array translated via Date
      */
     public static byte[] date2buf(Date d) {
         return date2buf(d.getTime());
     }
 
+
     /**
-     * @param times
-     * @return byte[]{year-2000,month,day_of_month,hour_of_day,minute,seconds}
+     * Translate GMT time to byte array.
+     *
+     * @param times The GMT time
+     * @return The byte array translated. eg:byte[]{year-2000,month,day_of_month,hour_of_day,minute,seconds}
      */
     public static byte[] date2buf(long times) {
         byte[] packetBuffer = new byte[6];
@@ -148,13 +165,21 @@ public class ByteBufferUtil {
         return packetBuffer;
     }
 
+    /**
+     * Translate java.util.Date to bcd byte buffer
+     *
+     * @param d The date to be translte
+     * @return The bcd byte buffer
+     */
     public static byte[] date2bcdbuf(Date d) {
         return date2bcdbuf(d.getTime());
     }
 
     /**
-     * @param datetime
-     * @return byte[]{year-2000,month,day_of_month,hour_of_day,minute,seconds}
+     * Translate GMT time to bcd byte buffer
+     *
+     * @param datetime The GMT time
+     * @return the bcd byte buffer, eg:byte[]{year-2000,month,day_of_month,hour_of_day,minute,seconds}
      */
     public static byte[] date2bcdbuf(long datetime) {
         byte[] packetBuffer = new byte[6];
@@ -170,17 +195,23 @@ public class ByteBufferUtil {
     }
 
     /**
-     * @param buffer
-     * @return
+     * Translate buffer to GMT time
+     *
+     * @param buffer The GMT buffer
+     * @return The GMT time
+     * @throws Exception The time need 6 bytes at least, if the buffer avaible size less than 6, this will happen
      */
     public static long buf2Date(byte[] buffer) throws Exception {
         return buf2Date(buffer, 0);
     }
 
     /**
+     * Translate buffer to GMT time
+     *
      * @param buffer byte[]{year-2000,month,day_of_month,hour_of_day,minute,seconds}
-     * @param offset
-     * @return
+     * @param offset The position of buffer where begin to translate from
+     * @return The GMT time
+     * @throws Exception The time need 6 bytes at least, if the buffer avaible size less than 6, this will happen
      */
     public static long buf2Date(byte[] buffer, int offset) throws Exception {
         if (buffer.length - offset < 6) {
@@ -198,17 +229,23 @@ public class ByteBufferUtil {
     }
 
     /**
-     * @param buffer
-     * @return
+     * Translate bcd buffer to GMT time
+     *
+     * @param buffer The bcd time buffer
+     * @return The GMT time encode by bcd
+     * @throws Exception The time need 6 bytes at least, if the buffer avaible size less than 6, this will happen
      */
     public static long bcdbuf2Date(byte[] buffer) throws Exception {
         return bcdbuf2Date(buffer, 0);
     }
 
     /**
+     * Translate bcd buffer to GMT time
+     *
      * @param buffer byte[]{year-2000,month,day_of_month,hour_of_day,minute,seconds}
-     * @param offset
-     * @return
+     * @param offset The postion where buffer to translate from
+     * @return The GMT time encode by bcd
+     * @throws Exception The time need 6 bytes at least, if the buffer avaible size less than 6, this will happen
      */
     public static long bcdbuf2Date(byte[] buffer, int offset) throws Exception {
         if (buffer.length - offset < 6) {
@@ -226,30 +263,36 @@ public class ByteBufferUtil {
     }
 
     /**
-     * @param buffer
-     * @return
-     * @throws Exception
+     * Parse byte array to 16 bit number in BigEndian
+     *
+     * @param buffer The buffer to be parsed
+     * @return 16 bit unsigned number
+     * @throws Exception While buffer available length is smaller than 2, this will be a mistake
      */
     public static short parseShort(byte[] buffer) throws Exception {
         return parseShort(buffer, 0, ByteOrder.BigEndian);
     }
 
     /**
-     * @param buffer
-     * @param byteOrder
-     * @return
-     * @throws Exception
+     * Parse byte array to 16 bit number in ByteOrder
+     *
+     * @param buffer    The buffer to be parsed
+     * @param byteOrder The endian used by parse
+     * @return 16 bit unsigned number
+     * @throws Exception While buffer available length is smaller than 2, this will be a mistake
      */
     public static short parseShort(byte[] buffer, ByteOrder byteOrder) throws Exception {
         return parseShort(buffer, 0, byteOrder);
     }
 
     /**
-     * @param buffer
-     * @param offset
-     * @param byteOrder
-     * @return
-     * @throws Exception
+     * Parse byte array to 16 bit number in ByteOrder
+     *
+     * @param buffer    The buffer to be parsed from
+     * @param offset    The position where buffer begin to parse
+     * @param byteOrder The endian store in buffer
+     * @return 16 bit unsigned number
+     * @throws Exception While buffer available length is smaller than 2, this will be a mistake
      */
     public static short parseShort(byte[] buffer, int offset, ByteOrder byteOrder) throws Exception {
         if (buffer.length - offset < 2) {
@@ -265,30 +308,36 @@ public class ByteBufferUtil {
     }
 
     /**
-     * @param buffer
-     * @return
-     * @throws Exception
+     * Parse byte array to 32 bit number in BigEndian
+     *
+     * @param buffer The buffer to be parsed
+     * @return 32 bit unsigned number
+     * @throws Exception While buffer available length is smaller than 4, this will be a mistake
      */
     public static int parseInt(byte[] buffer) throws Exception {
         return parseInt(buffer, 0, ByteOrder.BigEndian);
     }
 
     /**
-     * @param buffer
-     * @param byteOrder
-     * @return
-     * @throws Exception
+     * Parse byte array to 32 bit number in ByteOrder
+     *
+     * @param buffer    The buffer to be parsed
+     * @param byteOrder The endian used by parse
+     * @return 32 bit unsigned number
+     * @throws Exception While buffer available length is smaller than 4, this will be a mistake
      */
     public static int parseInt(byte[] buffer, ByteOrder byteOrder) throws Exception {
         return parseInt(buffer, 0, byteOrder);
     }
 
     /**
-     * @param buffer
-     * @param offset
-     * @param byteOrder
-     * @return
-     * @throws Exception
+     * Parse byte array to 32 bit number in ByteOrder
+     *
+     * @param buffer    The buffer to be parsed
+     * @param byteOrder The endian used by parse
+     * @param offset    The offset of buffer where to parse from
+     * @return 32 bit unsigned number
+     * @throws Exception While buffer available length is smaller than 4, this will be a mistake
      */
     public static int parseInt(byte[] buffer, int offset, ByteOrder byteOrder) throws Exception {
         if (buffer.length - offset < 4) {
@@ -308,30 +357,36 @@ public class ByteBufferUtil {
     }
 
     /**
-     * @param buffer
-     * @return
-     * @throws Exception
+     * Parse byte array to 64 bit number in ByteOrder
+     *
+     * @param buffer The buffer to be parsed
+     * @return 64 bit unsigned number
+     * @throws Exception While buffer available length is smaller than 8, this will be a mistake
      */
     public static long parseLong(byte[] buffer) throws Exception {
         return parseLong(buffer, 0, ByteOrder.BigEndian);
     }
 
     /**
-     * @param buffer
-     * @param byteOrder
-     * @return
-     * @throws Exception
+     * Parse byte array to 64 bit number in ByteOrder
+     *
+     * @param buffer    The buffer to be parsed
+     * @param byteOrder The endian used by parse
+     * @return 64 bit unsigned number
+     * @throws Exception While buffer available length is smaller than 8, this will be a mistake
      */
     public static long parseLong(byte[] buffer, ByteOrder byteOrder) throws Exception {
         return parseLong(buffer, 0, byteOrder);
     }
 
     /**
-     * @param buffer
-     * @param offset
-     * @param byteOrder
-     * @return
-     * @throws Exception
+     * Parse byte array to 64 bit number in ByteOrder
+     *
+     * @param buffer    The buffer to be parsed
+     * @param byteOrder The endian used by parse
+     * @param offset    The offset of buffer beginning
+     * @return 64 bit unsigned number
+     * @throws Exception While buffer available length is smaller than 8, this will be a mistake
      */
     public static long parseLong(byte[] buffer, int offset, ByteOrder byteOrder) throws Exception {
         if (buffer.length - offset < 8) {
@@ -359,17 +414,22 @@ public class ByteBufferUtil {
     }
 
     /**
-     * @param v
-     * @return
+     * Translate 16 bit unsigned number to byte buffer in BigEndian
+     *
+     * @param v The value to be translated
+     * @return The byte buffer translated
      */
     public static byte[] toBytes(short v) {
         return toBytes(v, ByteOrder.BigEndian);
     }
 
+
     /**
-     * @param v
-     * @param byteOrder
-     * @return
+     * Translate 16 bit unsigned number to byte buffer in BigEndian
+     *
+     * @param v         The value to be translated
+     * @param byteOrder The endian used by translation
+     * @return The byte buffer translated
      */
     public static byte[] toBytes(short v, ByteOrder byteOrder) {
         byte[] buf = new byte[2];
@@ -382,17 +442,21 @@ public class ByteBufferUtil {
     }
 
     /**
-     * @param values
-     * @return
+     * Translate 16 bit unsigned number array to byte buffer in BigEndian
+     *
+     * @param values The value to be translated
+     * @return The byte buffer translated
      */
     public static byte[] toBytes(short[] values) {
         return toBytes(values, ByteOrder.BigEndian);
     }
 
     /**
-     * @param values
-     * @param byteOrder
-     * @return
+     * Translate 16 bit unsigned number array to byte buffer in BigEndian
+     *
+     * @param values    The value to be translated
+     * @param byteOrder The endian used by translation
+     * @return The byte buffer translated
      */
     public static byte[] toBytes(short[] values, ByteOrder byteOrder) {
         byte[] buf = new byte[values.length * 2];
@@ -409,17 +473,21 @@ public class ByteBufferUtil {
     }
 
     /**
-     * @param v
-     * @return
+     * Translate 32 bit unsigned number to byte buffer in BigEndian
+     *
+     * @param v The value to be translated
+     * @return The byte buffer translated
      */
     public static byte[] toBytes(int v) {
         return toBytes(v, ByteOrder.BigEndian);
     }
 
     /**
-     * @param v
-     * @param byteOrder
-     * @return
+     * Translate 32 bit unsigned number to byte buffer in ByteOrder
+     *
+     * @param v         The value to be translated
+     * @param byteOrder The endian used by translation
+     * @return The byte buffer translated
      */
     public static byte[] toBytes(int v, ByteOrder byteOrder) {
         byte[] buf = new byte[4];
@@ -434,17 +502,21 @@ public class ByteBufferUtil {
     }
 
     /**
-     * @param values
-     * @return
+     * Translate 32 bit unsigned number array to byte buffer in BigEndian
+     *
+     * @param values The value to be translated
+     * @return The byte buffer translated
      */
     public static byte[] toBytes(int[] values) {
         return toBytes(values, ByteOrder.BigEndian);
     }
 
     /**
-     * @param values
-     * @param byteOrder
-     * @return
+     * Translate 32 bit unsigned number array to byte buffer in BigEndian
+     *
+     * @param values    The value to be translated
+     * @param byteOrder The endian used by translation
+     * @return The byte buffer translated
      */
     public static byte[] toBytes(int[] values, ByteOrder byteOrder) {
         byte[] buf = new byte[values.length * 4];
@@ -463,17 +535,21 @@ public class ByteBufferUtil {
     }
 
     /**
-     * @param v
-     * @return
+     * Translate 64 bit number to byte buffer
+     *
+     * @param v The number to be tranlated
+     * @return The buffer tranlated
      */
     public static byte[] toBytes(long v) {
         return toBytes(v, ByteOrder.BigEndian);
     }
 
     /**
-     * @param v
-     * @param byteOrder
-     * @return
+     * Translate 64 bit number to byte buffer
+     *
+     * @param v         The number to be tranlated
+     * @param byteOrder The endian used by translation
+     * @return The buffer tranlated
      */
     public static byte[] toBytes(long v, ByteOrder byteOrder) {
         byte[] buf = new byte[8];
@@ -492,17 +568,21 @@ public class ByteBufferUtil {
     }
 
     /**
-     * @param values
-     * @return
+     * Translate 64 bit number array to byte buffer
+     *
+     * @param values The number to be tranlated
+     * @return The buffer tranlated
      */
     public static byte[] toBytes(long[] values) {
         return toBytes(values, ByteOrder.BigEndian);
     }
 
     /**
-     * @param values
-     * @param byteOrder
-     * @return
+     * Translate 64 bit number array to byte buffer
+     *
+     * @param values    The number to be tranlated
+     * @param byteOrder The endian used by translation
+     * @return The buffer tranlated
      */
     public static byte[] toBytes(long[] values, ByteOrder byteOrder) {
         byte[] buf = new byte[values.length * 8];

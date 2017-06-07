@@ -22,16 +22,18 @@ import java.io.UnsupportedEncodingException;
 public class HexStringUtil {
 
     private static final char[] DIGITS_UPPER = {
-        '0', '1', '2', '3', '4', '5',
-        '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F'};
+            '0', '1', '2', '3', '4', '5',
+            '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F'};
 
     private HexStringUtil() {
 
     }
 
     /**
-     * @param b
-     * @return
+     * Translate byte value to hex string
+     *
+     * @param b The value to be translate
+     * @return The hex string
      */
     public static String toHexString(byte b) {
         char[] chars = new char[2];
@@ -41,8 +43,10 @@ public class HexStringUtil {
     }
 
     /**
-     * @param buffer
-     * @return
+     * Translate byte buffer value to hex string
+     *
+     * @param buffer The byte buffer to be translate
+     * @return The hex string
      */
     public static String toHexString(byte[] buffer) {
         char[] chars = new char[buffer.length << 1];
@@ -54,8 +58,10 @@ public class HexStringUtil {
     }
 
     /**
-     * @param v
-     * @return
+     * Translate short value to hex string
+     *
+     * @param v The value to be translate
+     * @return The hex string
      */
     public static String toHexString(short v) {
         char[] chars = new char[4];
@@ -67,8 +73,10 @@ public class HexStringUtil {
     }
 
     /**
-     * @param v
-     * @return
+     * Translate short array to hex string
+     *
+     * @param v The value to be translate
+     * @return The hex string
      */
     public static String toHexString(short[] v) {
         StringBuilder sb = new StringBuilder();
@@ -78,6 +86,12 @@ public class HexStringUtil {
         return sb.toString();
     }
 
+    /**
+     * Translate 24 bit number to hex string
+     *
+     * @param v The number to be translate
+     * @return The hex string
+     */
     public static String toHexString3bytes(int v) {
         char[] chars = new char[6];
         chars[0] = DIGITS_UPPER[(v >>> 20) & 0x0F];
@@ -89,6 +103,12 @@ public class HexStringUtil {
         return new String(chars);
     }
 
+    /**
+     * Translate 32 bit number to hex string
+     *
+     * @param v The number to be translate
+     * @return The hex string
+     */
     public static String toHexString(int v) {
         char[] chars = new char[8];
         chars[0] = DIGITS_UPPER[(v >>> 28) & 0x0F];
@@ -103,8 +123,10 @@ public class HexStringUtil {
     }
 
     /**
-     * @param v
-     * @return
+     * Translate 32 bit number array to hex string
+     *
+     * @param v The number array to be translate
+     * @return The hex string
      */
     public static String toHexString(int[] v) {
         StringBuilder sb = new StringBuilder();
@@ -114,6 +136,12 @@ public class HexStringUtil {
         return sb.toString();
     }
 
+    /**
+     * Translate 64 bit number to hex string
+     *
+     * @param v The number to be translate
+     * @return The hex string
+     */
     public static String toHexString(long v) {
         char[] chars = new char[16];
         chars[0] = DIGITS_UPPER[(int) ((v >>> 60) & 0x0F)];
@@ -136,8 +164,10 @@ public class HexStringUtil {
     }
 
     /**
-     * @param v
-     * @return
+     * Translate 64 bit number array to hex string
+     *
+     * @param v The number to be translate
+     * @return The hex string
      */
     public static String toHexString(long[] v) {
         StringBuilder sb = new StringBuilder();
@@ -148,8 +178,10 @@ public class HexStringUtil {
     }
 
     /**
-     * @param ascii
-     * @return
+     * Translte ascii string to hex string
+     *
+     * @param ascii The ascii string to be translate
+     * @return The hex string
      */
     public static String toHexString(String ascii) {
         return toHexString(ascii.getBytes());
@@ -161,21 +193,33 @@ public class HexStringUtil {
      * @return
      * @throws UnsupportedEncodingException
      */
+    /**
+     * Translte ascii string to hex string
+     *
+     * @param ascii       The ascii string to be translate
+     * @param charsetName The charset of ascii string
+     * @return The hex string
+     * @throws UnsupportedEncodingException translate error
+     */
     public static String toHexString(String ascii, String charsetName) throws UnsupportedEncodingException {
         return toHexString(ascii.getBytes(charsetName));
     }
 
     /**
-     * @param hexString
-     * @return
+     * Parse hexstring to ascii string
+     *
+     * @param hexString The hex string
+     * @return The ascii string
      */
     public static String parseAsciiString(String hexString) {
         return new String(parseBytes(hexString));
     }
 
     /**
-     * @param hexString
-     * @return
+     * Parse hexstring to byte buffer
+     *
+     * @param hexString The hex string
+     * @return The byte buffer
      */
     public static byte[] parseBytes(String hexString) {
         byte[] buf = new byte[hexString.length() >>> 1];

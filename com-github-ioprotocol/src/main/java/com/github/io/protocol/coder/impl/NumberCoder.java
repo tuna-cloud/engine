@@ -208,7 +208,7 @@ public class NumberCoder extends AbstractNumberCoder implements ICoder {
      * @param field The field wart for decode.
      * @param annotation The decode metal information.
      * @return The pretty string like json.
-     * @throws Exception
+     * @throws Exception error
      */
     @Override
     public String toPrettyHexString(BitBuffer bitBuffer, final BeanMap beanMap, Field field, Annotation annotation) throws Exception {

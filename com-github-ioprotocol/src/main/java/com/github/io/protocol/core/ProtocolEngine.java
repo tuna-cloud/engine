@@ -1,3 +1,19 @@
+/*
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package com.github.io.protocol.core;
 
 import com.github.io.protocol.coder.CoderFactory;
@@ -13,14 +29,6 @@ import java.lang.annotation.Annotation;
 import java.lang.reflect.Array;
 import java.lang.reflect.Field;
 
-/**
- * @Project:net-top-framwork-protocol
- * @Package net.top.framwork.protocolpool.core
- * @Description:
- * @author: xsy
- * @date： 2016/6/21
- * @version： V1.0
- */
 public class ProtocolEngine {
     private BitBuffer bitBuffer;
     private int baseIndex = 0;
@@ -38,12 +46,13 @@ public class ProtocolEngine {
     }
 
     /**
+     * Decode byte buffer to JavaBean
      *
-     * @param buf
-     * @param objClass
-     * @param <T>
-     * @return
-     * @throws Exception
+     * @param buf      The protocol binary buffer
+     * @param objClass The class info of JavaBean
+     * @param <T>      The JavaBean Template
+     * @return The JavaBean decoded
+     * @throws Exception error
      */
     public <T> T decode(byte[] buf, Class<T> objClass) throws Exception {
         decodePrepare(buf);
@@ -51,12 +60,14 @@ public class ProtocolEngine {
     }
 
     /**
+     * Decode byte buffer to JavaBean
      *
-     * @param buf
-     * @param objClass
-     * @param <T>
-     * @return
-     * @throws Exception
+     * @param buf      The protocol binary buffer
+     * @param index    The posotion where to decode begin
+     * @param objClass The class info of JavaBean
+     * @param <T>      The JavaBean Template
+     * @return The JavaBean decoded
+     * @throws Exception error
      */
     public <T> T decode(byte[] buf, int index, Class<T> objClass) throws Exception {
         decodePrepare(buf, index);
@@ -64,12 +75,15 @@ public class ProtocolEngine {
     }
 
     /**
+     * Decode byte buffer to JavaBean
      *
-     * @param buf
-     * @param objClass
-     * @param <T>
-     * @return
-     * @throws Exception
+     * @param buf      The protocol binary buffer
+     * @param index    The posotion where to decode begin
+     * @param size     The size of buffer to be decoded
+     * @param objClass The class info of JavaBean
+     * @param <T>      The JavaBean Template
+     * @return The JavaBean decoded
+     * @throws Exception error
      */
     public <T> T decode(byte[] buf, int index, int size, Class<T> objClass) throws Exception {
         decodePrepare(buf, index, size);
@@ -77,29 +91,33 @@ public class ProtocolEngine {
     }
 
     /**
-     * @param buf
-     * @throws Exception
+     * While we decode buffer to JavaBean, we use recursion,so we must devide into two method
+     *
+     * @param buf The buffer to be decoded
+     * @throws Exception error
      */
     private void decodePrepare(byte[] buf) throws Exception {
         decodePrepare(buf, 0);
     }
 
     /**
+     * While we decode buffer to JavaBean, we use recursion,so we must devide into two method
      *
-     * @param buf
-     * @param index
-     * @throws Exception
+     * @param buf   The buffer to be decoded
+     * @param index The posotion to be decode beginning
+     * @throws Exception error
      */
     private void decodePrepare(byte[] buf, int index) throws Exception {
         decodePrepare(buf, index, buf.length - index);
     }
 
     /**
-     * 解析对象时，先将数组wrap到cacheBuffer中
-     * @param buf
-     * @param index
-     * @param size
-     * @throws Exception
+     * While we decode buffer to JavaBean, we use recursion,so we must devide into two method
+     *
+     * @param buf   The buffer to be decoded
+     * @param index The posotion to be decode beginning
+     * @param size  The buffer size to be decoded
+     * @throws Exception error
      */
     private void decodePrepare(byte[] buf, int index, int size) throws Exception {
         bitBuffer.reset();
@@ -108,11 +126,12 @@ public class ProtocolEngine {
     }
 
     /**
+     * Begin to decode
      *
-     * @param objClass
-     * @param <T>
-     * @return
-     * @throws Exception
+     * @param objClass The JavaBean class info
+     * @param <T>      The JavaBean class type
+     * @return The JavaBean
+     * @throws Exception error
      */
     private <T> T decodeObj(Class<T> objClass) throws Exception {
 
@@ -123,18 +142,18 @@ public class ProtocolEngine {
 
         for (Field field : fields) {
             Annotation[] annotations = pool.getAnnotations(field);
-            if(annotations != null && annotations.length > 0) {
+            if (annotations != null && annotations.length > 0) {
                 if (annotations[0] instanceof Element) {
                     Element anno = (Element) annotations[0];
                     int length = CoderHelper.caculateArrayLength(obj, anno.length());
-                    if(length == 1) {
+                    if (length == 1) {
                         Object o = decodeObj(field.getType());
                         beanMap.put(field.getName(), o);
                     } else {
                         // 构造数组
                         Class objectClass = field.getType().getComponentType();
                         Object[] arrs = (Object[]) Array.newInstance(objectClass, length);
-                        for(int i = 0; i < arrs.length; i++) {
+                        for (int i = 0; i < arrs.length; i++) {
                             arrs[i] = decodeObj(objectClass);
                         }
                         beanMap.put(field.getName(), arrs);
@@ -149,10 +168,11 @@ public class ProtocolEngine {
     }
 
     /**
+     * Encode java bean to byte buffer
      *
-     * @param obj
-     * @return
-     * @throws Exception
+     * @param obj The JavaBean
+     * @return The byte buffer
+     * @throws Exception error
      */
     public byte[] encode(Object obj) throws Exception {
         encodePrepare();
@@ -165,9 +185,9 @@ public class ProtocolEngine {
     }
 
     /**
-     * 反射实现协议打包
-     * @param obj
-     * @return
+     * Begin to encode
+     *
+     * @param obj The JavaBean
      */
     private void encodeObj(Object obj) throws Exception {
         Field[] fields = pool.getFields(obj.getClass());
@@ -176,11 +196,11 @@ public class ProtocolEngine {
 
         for (Field field : fields) {
             Annotation[] annotations = pool.getAnnotations(field);
-            if(annotations != null && annotations.length > 0) {
+            if (annotations != null && annotations.length > 0) {
                 if (annotations[0] instanceof Element) {
                     Element anno = (Element) annotations[0];
                     int length = CoderHelper.caculateArrayLength(obj, anno.length());
-                    if(length == 1) {
+                    if (length == 1) {
                         encodeObj(beanMap.get(field.getName()));
                     } else {
                         Object[] objs = (Object[]) beanMap.get(field.getName());
@@ -195,14 +215,21 @@ public class ProtocolEngine {
         }
     }
 
+    /**
+     * Encode finish,return the byte buffer
+     *
+     * @return The result of encode
+     */
     private byte[] encodeResult() {
         return bitBuffer.toByteArray();
     }
 
     /**
-     * 转成易于调试的输出信息
-     * @param obj
-     * @return
+     * Pretty string to debug binary protocl
+     *
+     * @param obj The JavaBean
+     * @return The pretty string
+     * @throws Exception error
      */
     public String toPrettyHexString(Object obj) throws Exception {
         StringBuilder builder = new StringBuilder();
@@ -212,10 +239,11 @@ public class ProtocolEngine {
     }
 
     /**
+     * Begin to print pretty string
      *
-     * @param obj
-     * @param prettyStringBuilder
-     * @throws Exception
+     * @param obj                 The JavaBean
+     * @param prettyStringBuilder The prettystring builder
+     * @throws Exception error
      */
     private void doPrettyHexString(Object obj, StringBuilder prettyStringBuilder) throws Exception {
         prettyStringBuilder.append(obj.getClass().getSimpleName() + "={");
@@ -228,11 +256,11 @@ public class ProtocolEngine {
             Field field = fields[i];
 
             Annotation[] annotations = pool.getAnnotations(field);
-            if(annotations != null && annotations.length > 0) {
+            if (annotations != null && annotations.length > 0) {
                 if (annotations[0] instanceof Element) {
                     Element anno = (Element) annotations[0];
                     int arraySize = CoderHelper.caculateArrayLength(obj, anno.length());
-                    if(arraySize == 1) {
+                    if (arraySize == 1) {
                         prettyStringBuilder.append(field.getName() + "={");
                         doPrettyHexString(beanMap.get(field.getName()), prettyStringBuilder);
                         prettyStringBuilder.append("},");
@@ -246,7 +274,7 @@ public class ProtocolEngine {
                     }
                 } else {
                     String line = coderFactory.toPrettyHexString(bitBuffer, beanMap, field, annotations[0]);
-                    if(i == (length - 1)) {
+                    if (i == (length - 1)) {
                         line = line.replace(",", "");
                     }
                     prettyStringBuilder.append(line);

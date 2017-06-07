@@ -11,8 +11,8 @@ http://www.w3.org/2001/XMLSchema-instance ">
         <version>7</version>
     </parent>
 
-    <groupId>org.apache.io.protocol</groupId>
-    <artifactId>org-apache-io-protocol</artifactId>
+    <groupId>com.github.ioprotocol</groupId>
+    <artifactId>com-github-ioprotocol</artifactId>
     <version>${module.version}</version>
     <packaging>jar</packaging>
     <description>Protocol engine is a lightweight protocol parase framwork and resuable components</description>
@@ -27,14 +27,14 @@ http://www.w3.org/2001/XMLSchema-instance ">
     <developers>
         <developer>
             <name>shuyang xu</name>
-            <email>xsy870712@163.com</email>
+            <email>xushy@yahoo.com</email>
         </developer>
     </developers>
 
     <scm>
-        <connection>scm:git:git@github.com:xsyjjh/protocol-engine.git</connection>
-        <developerConnection>scm:git:git@github.com:xsyjjh/protocol-engine.git</developerConnection>
-        <url>git:git@github.com:xsyjjh/protocol-engine.git</url>
+        <connection>scm://git@github.com:ioprotocol/engine.git</connection>
+        <developerConnection>scm://git@github.com:ioprotocol/engine.git</developerConnection>
+        <url>git@github.com:ioprotocol/engine.git</url>
     </scm>
 
     <properties>
@@ -158,29 +158,6 @@ http://www.w3.org/2001/XMLSchema-instance ">
                         </archive>
                     </configuration>
                 </plugin>
-                <!--
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-install-plugin</artifactId>
-                    <version>2.4</version>
-                    <configuration>
-                        <groupId>org.apache.io.protocol</groupId>
-                        <artifactId>org-apache-io-protocol</artifactId>
-                        <version>${module.version}</version>
-                        <packaging>jar</packaging>
-                        <file>${basedir}/target/org-apache-io-protocol-${module.version}.jar</file>
-                    </configuration>
-                    <executions>
-                        <execution>
-                            <id>install-jar-lib</id>
-                            <goals>
-                                <goal>install-file</goal>
-                            </goals>
-                            <phase>validate</phase>
-                        </execution>
-                    </executions>
-                </plugin>
-                -->
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-compiler-plugin</artifactId>

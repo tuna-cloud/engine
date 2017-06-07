@@ -23,21 +23,31 @@ import java.lang.reflect.InvocationTargetException;
 
 public interface IProtocolPool {
     /**
-     * @param cls
-     * @return
+     * Get the pooled object assosiate with Object class info.
+     *
+     * @param cls The class info associated with pooled object
+     * @return The pooled object
+     * @throws NoSuchMethodException     The java relection exception
+     * @throws IllegalAccessException    The java relection exception
+     * @throws InvocationTargetException The java relection exception
+     * @throws InstantiationException    The java relection exception
      */
     Object getObject(
-        Class<?> cls) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException;
+            Class<?> cls) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException;
 
     /**
-     * @param cls
-     * @return
+     * Get the field list of class T
+     *
+     * @param cls The class info
+     * @return The field list
      */
     Field[] getFields(Class<?> cls);
 
     /**
-     * @param field
-     * @return
+     * Get the annotations marked on field
+     *
+     * @param field The field where marked on annotations
+     * @return The annotations list
      */
     Annotation[] getAnnotations(Field field);
 

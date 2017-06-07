@@ -22,13 +22,14 @@ import com.github.io.protocol.core.CoderHelper;
 
 public abstract class AbstractNumberCoder {
     /**
+     * Decode bitBuffer to JavaBean
      *
-     * @param bitWidth
-     * @param length
-     * @param bitBuffer
-     * @param bean
-     * @param decoder
-     * @throws Exception
+     * @param bitWidth  The bit to decode
+     * @param length    The length to decode
+     * @param bitBuffer The cache
+     * @param bean      THe JavaBean
+     * @param decoder   The decoder defined by user themselves
+     * @throws Exception error
      */
     protected void decodeItself(int bitWidth, int length, BitBuffer bitBuffer, Object bean, String decoder) throws Exception {
         int totalBytes = bitWidth * length / 8;
@@ -48,12 +49,13 @@ public abstract class AbstractNumberCoder {
     }
 
     /**
+     * Encode JavaBean to bitBuffer
      *
-     * @param bitWidth
-     * @param length
-     * @param bitBuffer
-     * @param bean
-     * @param encoder
+     * @param bitWidth  The bit to decode
+     * @param length    The length to decode
+     * @param bitBuffer The cache
+     * @param bean      THe JavaBean
+     * @param encoder   The encoder defined by user themselves
      * @throws Exception
      */
     protected void encodeItself(int bitWidth, int length, BitBuffer bitBuffer, Object bean, String encoder) throws Exception {
