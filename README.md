@@ -27,10 +27,10 @@ byte[] buf = engine.encode(bean);
 Now we use a simple binary protocol begin our travel.<br>
 The binary protocol like this:<br>
 ```java
-+--------+---------+--------+----+-----------+
++--------+---------+--------+----------------+
 | Header | Version | Length |   Content      |
 | 0x2882 |   0x01  | 0x000B | "HELLO, WORLD" |
-+--------+---------+------+-+----------------+
++--------+---------+--------+----------------+
 ```
 First we need define a java class like this:<br>
 ```java
