@@ -1,4 +1,4 @@
-package com.github.io.protocol.test.simpleexample;
+package com.github.io.protocol.test.example.simpleexample;
 
 import com.github.io.protocol.annotation.AsciiString;
 import com.github.io.protocol.annotation.ByteOrder;
