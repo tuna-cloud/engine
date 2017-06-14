@@ -18,13 +18,14 @@
 package com.github.io.protocol.test.number;
 
 import java.util.Arrays;
+
 import com.github.io.protocol.annotation.Number;
 import com.github.io.protocol.test.TestEngine;
 import com.github.io.protocol.utils.HexStringUtil;
 import org.junit.Assert;
 import org.junit.Test;
 
-public class TestBit1 {
+public class TestBitAndBits {
 
     /**
      * The base test for generally
@@ -115,7 +116,7 @@ public class TestBit1 {
     public static class Case2 {
         @Number(width = 8)
         private Integer length;
-        @Number(width = 3, length = "getLength" )
+        @Number(width = 3, length = "getLength")
         private short[] values;
 
         public Integer getLength() {
@@ -170,7 +171,7 @@ public class TestBit1 {
     @Test
     public void test2() throws Exception {
         Case2 case2 = new Case2();
-        case2.setValues(new short[] {1, 2, 3, 1, 2, 3, 1, 2});
+        case2.setValues(new short[]{1, 2, 3, 1, 2, 3, 1, 2});
         byte[] buf = TestEngine.encode(case2);
         System.out.println(HexStringUtil.toHexString(buf));
 
@@ -184,7 +185,7 @@ public class TestBit1 {
         Case3 case3 = new Case3();
         case3.setValue1(5);
         case3.setValue2(9);
-        case3.setArray(new int[] {1, 2, 1, 2});
+        case3.setArray(new int[]{1, 2, 1, 2});
         byte[] buf = TestEngine.encode(case3);
         System.out.println(HexStringUtil.toHexString(buf));
         System.out.println(TestEngine.toPreetyString(case3));
@@ -194,7 +195,7 @@ public class TestBit1 {
         Assert.assertTrue(c.getValue1() == 5);
         Assert.assertTrue(c.getValue2() == 9);
         Assert.assertTrue(c.getArray().length == 4);
-        Assert.assertTrue(Arrays.equals(c.getArray(), new int[] {1, 2, 1, 2}));
+        Assert.assertTrue(Arrays.equals(c.getArray(), new int[]{1, 2, 1, 2}));
     }
 
     public static class Case3 {
@@ -208,10 +209,10 @@ public class TestBit1 {
         @Override
         public String toString() {
             return "Case3{" +
-                "value1=" + value1 +
-                ", value2=" + value2 +
-                ", array=" + Arrays.toString(array) +
-                '}';
+                    "value1=" + value1 +
+                    ", value2=" + value2 +
+                    ", array=" + Arrays.toString(array) +
+                    '}';
         }
 
         public int getValue1() {
