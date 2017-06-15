@@ -100,3 +100,101 @@ The output:
 BitTest{col1=1, col2=2, col3=5, col4=9, col5=19, col6=38, col7=77, col8=13}
 ```
 you can caculate the result manually to validate if it is true.
+* Byte or byte
+```java
+package com.github.io.protocol.test.example.bytes;
+
+import com.github.io.protocol.annotation.Number;
+import com.github.io.protocol.core.ProtocolEngine;
+import com.github.io.protocol.utils.HexStringUtil;
+import org.junit.Assert;
+import org.junit.Test;
+
+public class ByteTest {
+    /**
+     * While we want to represent a 8-bit unsigned value in java, even though we can use byte or Byte,
+     * But while the value greater than 128, the value in java will be a negative number.
+     * So we use short/Short/int/Integer/long/Long to represent a 8-bit unsigned value.
+     */
+    @Number(width = 8)
+    private short col1;
+
+    @Number(width = 8)
+    private Short col2;
+
+    @Number(width = 8)
+    private int col3;
+
+    @Number(width = 8)
+    private Integer col4;
+
+    @Number(width = 8)
+    private long col5;
+
+    @Number(width = 8)
+    private Long col6;
+
+    @Test
+    public void test() throws Exception {
+        ProtocolEngine engine = new ProtocolEngine();
+
+        ByteTest test = new ByteTest();
+
+        test.setCol1((short) 200);
+        test.setCol2((short) 200);
+        test.setCol3(200);
+        test.setCol4(200);
+        test.setCol5(200l);
+        test.setCol6(200l);
+
+        byte[] buf = engine.encode(test);
+
+        for(int i = 0; i < 6; i++) {
+            Assert.assertTrue(buf[i] == (byte)200);
+        }
+
+        System.out.println(HexStringUtil.toHexString(buf));
+
+        ByteTest decodeTest = engine.decode(buf, ByteTest.class);
+        System.out.println(decodeTest.toString());
+
+        Assert.assertTrue(decodeTest.getCol1() == 200);
+        Assert.assertTrue(decodeTest.getCol2() == 200);
+        Assert.assertTrue(decodeTest.getCol3() == 200);
+        Assert.assertTrue(decodeTest.getCol4() == 200);
+        Assert.assertTrue(decodeTest.getCol5() == 200);
+        Assert.assertTrue(decodeTest.getCol6() == 200);
+    }
+
+
+    @Override
+    public String toString() {
+        return "ByteTest{" +
+                "col1=" + col1 +
+                ", col2=" + col2 +
+                ", col3=" + col3 +
+                ", col4=" + col4 +
+                ", col5=" + col5 +
+                ", col6=" + col6 +
+                '}';
+    }
+
+    public short getCol1() {
+        return col1;
+    }
+
+    public void setCol1(short col1) {
+        this.col1 = col1;
+    }
+
+    // other getters and setters ....
+}
+```
+The output result:
+```java
+C8C8C8C8C8C8
+ByteTest{col1=200, col2=200, col3=200, col4=200, col5=200, col6=200}
+```
+* Short or short
+* Integer or int
+* Long or long

@@ -199,7 +199,7 @@ public class ByteBufferUtil {
      *
      * @param buffer The GMT buffer
      * @return The GMT time
-     * @throws Exception The time need 6 bytes at least, if the buffer avaible size less than 6, this will happen
+     * @throws Exception The time need 6 unsigned8bit at least, if the buffer avaible size less than 6, this will happen
      */
     public static long buf2Date(byte[] buffer) throws Exception {
         return buf2Date(buffer, 0);
@@ -211,7 +211,7 @@ public class ByteBufferUtil {
      * @param buffer byte[]{year-2000,month,day_of_month,hour_of_day,minute,seconds}
      * @param offset The position of buffer where begin to translate from
      * @return The GMT time
-     * @throws Exception The time need 6 bytes at least, if the buffer avaible size less than 6, this will happen
+     * @throws Exception The time need 6 unsigned8bit at least, if the buffer avaible size less than 6, this will happen
      */
     public static long buf2Date(byte[] buffer, int offset) throws Exception {
         if (buffer.length - offset < 6) {
@@ -233,7 +233,7 @@ public class ByteBufferUtil {
      *
      * @param buffer The bcd time buffer
      * @return The GMT time encode by bcd
-     * @throws Exception The time need 6 bytes at least, if the buffer avaible size less than 6, this will happen
+     * @throws Exception The time need 6 unsigned8bit at least, if the buffer avaible size less than 6, this will happen
      */
     public static long bcdbuf2Date(byte[] buffer) throws Exception {
         return bcdbuf2Date(buffer, 0);
@@ -245,7 +245,7 @@ public class ByteBufferUtil {
      * @param buffer byte[]{year-2000,month,day_of_month,hour_of_day,minute,seconds}
      * @param offset The postion where buffer to translate from
      * @return The GMT time encode by bcd
-     * @throws Exception The time need 6 bytes at least, if the buffer avaible size less than 6, this will happen
+     * @throws Exception The time need 6 unsigned8bit at least, if the buffer avaible size less than 6, this will happen
      */
     public static long bcdbuf2Date(byte[] buffer, int offset) throws Exception {
         if (buffer.length - offset < 6) {

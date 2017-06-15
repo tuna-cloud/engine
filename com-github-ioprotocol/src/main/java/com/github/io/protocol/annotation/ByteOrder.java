@@ -24,12 +24,12 @@ package com.github.io.protocol.annotation;
  */
 public enum ByteOrder {
     /**
-     * Constant denoting big-endian byte order.  In this order, the bytes of a
+     * Constant denoting big-endian byte order.  In this order, the unsigned8bit of a
      * multibyte value are ordered from most significant to least significant.
      */
     BigEndian,
     /**
-     * Constant denoting little-endian byte order.  In this order, the bytes of
+     * Constant denoting little-endian byte order.  In this order, the unsigned8bit of
      * a multibyte value are ordered from least significant to most
      * significant.
      */
