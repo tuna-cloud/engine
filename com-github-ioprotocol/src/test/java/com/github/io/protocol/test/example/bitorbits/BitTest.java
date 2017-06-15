@@ -2,9 +2,16 @@ package com.github.io.protocol.test.example.bitorbits;
 
 import com.github.io.protocol.annotation.Number;
 import com.github.io.protocol.core.ProtocolEngine;
-import com.github.io.protocol.test.example.simpleexample.ProtocolTest;
 import com.github.io.protocol.utils.HexStringUtil;
 import org.junit.Test;
+
+/*
+ *+------------------------------------+--------------------------+-------------+-------------------+
+ *|                Byte1               |              Byte2       |     Byte3   |         Byte4     |
+ *| Bit0 | Bit1~Bit2 | Bit3~Bit5 | Bit6~Bit9 | Bit10~Bit14 | Bit15~Bit20 | Bit21~Bit27 | Bit28~Bit31|
+ *| Col1 |   Col2    |   Col3    |  Col4     |    Col5     |    Col6     |   Col7      |  Col8      |
+ *+------+-----------+-----------+-----------+-------------+-------------+-------------+------------+
+ */
 
 public class BitTest {
     @Number(width = 1)
