@@ -17,32 +17,29 @@
 package com.github.io.protocol.core;
 
 import com.github.io.protocol.coder.CoderFactory;
+import com.github.io.protocol.protocolpool.SafeProtocolPool;
 import com.github.io.protocol.utils.HexStringUtil;
 import com.github.io.protocol.utils.PrettyUtil;
 import net.sf.cglib.beans.BeanMap;
 import com.github.io.protocol.annotation.Element;
 import com.github.io.protocol.coder.ICoder;
 import com.github.io.protocol.protocolpool.IProtocolPool;
-import com.github.io.protocol.protocolpool.UnsafeProtocolPool;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Array;
 import java.lang.reflect.Field;
 
 public class ProtocolEngine {
-    private BitBuffer bitBuffer;
-    private int baseIndex = 0;
+    private ThreadLocal<BitBuffer> bitBuffer;
     private ICoder coderFactory = new CoderFactory();
-    private IProtocolPool pool = new UnsafeProtocolPool();
+    private IProtocolPool pool = new SafeProtocolPool();
 
     public ProtocolEngine() {
-        bitBuffer = new BitBuffer();
-        baseIndex = 0;
+        bitBuffer = SafeBitBufferAllocator.allocate();
     }
 
     public ProtocolEngine(int bufferSize) {
-        bitBuffer = new BitBuffer(bufferSize);
-        baseIndex = 0;
+        bitBuffer = SafeBitBufferAllocator.allocate(bufferSize);
     }
 
     /**
@@ -120,9 +117,8 @@ public class ProtocolEngine {
      * @throws Exception error
      */
     private void decodePrepare(byte[] buf, int index, int size) throws Exception {
-        bitBuffer.reset();
-        bitBuffer.wrap(buf, index, size);
-        baseIndex = index;
+        bitBuffer.get().reset();
+        bitBuffer.get().wrap(buf, index, size);
     }
 
     /**
@@ -159,7 +155,7 @@ public class ProtocolEngine {
                         beanMap.put(field.getName(), arrs);
                     }
                 } else {
-                    coderFactory.decode(bitBuffer, beanMap, field, annotations[0]);
+                    coderFactory.decode(bitBuffer.get(), beanMap, field, annotations[0]);
                 }
             }
         }
@@ -181,7 +177,7 @@ public class ProtocolEngine {
     }
 
     private void encodePrepare() {
-        bitBuffer.reset();
+        bitBuffer.get().reset();
     }
 
     /**
@@ -209,7 +205,7 @@ public class ProtocolEngine {
                         }
                     }
                 } else {
-                    coderFactory.encode(bitBuffer, beanMap, field, annotations[0]);
+                    coderFactory.encode(bitBuffer.get(), beanMap, field, annotations[0]);
                 }
             }
         }
@@ -221,7 +217,7 @@ public class ProtocolEngine {
      * @return The result of encode
      */
     private byte[] encodeResult() {
-        return bitBuffer.toByteArray();
+        return bitBuffer.get().toByteArray();
     }
 
     /**
@@ -273,7 +269,7 @@ public class ProtocolEngine {
                         }
                     }
                 } else {
-                    String line = coderFactory.toPrettyHexString(bitBuffer, beanMap, field, annotations[0]);
+                    String line = coderFactory.toPrettyHexString(bitBuffer.get(), beanMap, field, annotations[0]);
                     if (i == (length - 1)) {
                         line = line.replace(",", "");
                     }
