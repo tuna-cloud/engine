@@ -9,7 +9,12 @@ public class SafeBitBufferAllocator {
      * @return The BitBuffer
      */
     public static ThreadLocal<BitBuffer> allocate() {
-        return new ThreadLocal<>();
+        return new ThreadLocal<BitBuffer>() {
+            @Override
+            protected BitBuffer initialValue() {
+                return new BitBuffer(512);
+            }
+        };
     }
 
     /**

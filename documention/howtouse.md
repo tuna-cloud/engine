@@ -195,6 +195,5 @@ The output result:
 C8C8C8C8C8C8
 ByteTest{col1=200, col2=200, col3=200, col4=200, col5=200, col6=200}
 ```
-* Short or short
-* Integer or int
-* Long or long
+
+# much more documention refer to wiki
