@@ -18,7 +18,7 @@
 package com.github.io.protocol.coder.impl;
 
 import com.github.io.protocol.annotation.ByteOrder;
-import com.github.io.protocol.utils.ArrayHelper;
+import com.github.io.protocol.utils.*;
 import net.sf.cglib.beans.BeanMap;
 import com.github.io.protocol.annotation.Number;
 import com.github.io.protocol.annotation.Sign;
@@ -26,9 +26,6 @@ import com.github.io.protocol.coder.AbstractNumberCoder;
 import com.github.io.protocol.coder.ICoder;
 import com.github.io.protocol.core.BitBuffer;
 import com.github.io.protocol.core.CoderHelper;
-import com.github.io.protocol.utils.BCDUtil;
-import com.github.io.protocol.utils.ByteBufferUtil;
-import com.github.io.protocol.utils.HexStringUtil;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
@@ -312,21 +309,11 @@ public class NumberCoder extends AbstractNumberCoder implements ICoder {
 
         if (number.sign() == Sign.Signed) {
             value = (byte) (value - number.offset());
-            return value;
+            return NumberCastUtil.cast(value, typeName);
         } else {
-            int unsignedValue = value & 0xFF;
-            unsignedValue = unsignedValue - number.offset();
-
-            if (typeName.equalsIgnoreCase("int") || typeName.equalsIgnoreCase("Integer")
-                || typeName.equalsIgnoreCase("int[]") || typeName.equalsIgnoreCase("Integer[]")) {
-                return unsignedValue;
-            } else if (typeName.equalsIgnoreCase("short") || typeName.equalsIgnoreCase("short[]")) {
-                return (short) unsignedValue;
-            } else if (typeName.equalsIgnoreCase("long") || typeName.equalsIgnoreCase("long[]")) {
-                return (long) unsignedValue;
-            } else {
-                throw new Exception(field.getName() + " type dismatch");
-            }
+            short unsignedValue = (short) (value & 0xFF);
+            unsignedValue = (short) (unsignedValue - number.offset());
+            return NumberCastUtil.cast(unsignedValue, typeName);
         }
     }
 
@@ -378,19 +365,11 @@ public class NumberCoder extends AbstractNumberCoder implements ICoder {
 
         if (number.sign() == Sign.Signed) {
             value = (short) (value - number.offset());
-            return value;
+            return NumberCastUtil.cast(value, typeName);
         } else {
             int unsignedValue = value & 0xFFFF;
             unsignedValue = unsignedValue - number.offset();
-
-            if (typeName.equalsIgnoreCase("int") || typeName.equalsIgnoreCase("Integer")
-                || typeName.equalsIgnoreCase("int[]") || typeName.equalsIgnoreCase("Integer[]")) {
-                return unsignedValue;
-            } else if (typeName.equalsIgnoreCase("long") || typeName.equalsIgnoreCase("Long[]")) {
-                return (long) unsignedValue;
-            } else {
-                throw new Exception(field.getName() + " type dismatch");
-            }
+            return NumberCastUtil.cast(unsignedValue, typeName);
         }
     }
 
@@ -444,16 +423,11 @@ public class NumberCoder extends AbstractNumberCoder implements ICoder {
 
         if (number.sign() == Sign.Signed) {
             value = value - number.offset();
-            return value;
+            return NumberCastUtil.cast(value, typeName);
         } else {
             long unsignedValue = value & 0xFFFFFFFFL;
             unsignedValue = unsignedValue - number.offset();
-
-            if (typeName.equalsIgnoreCase("long") || typeName.equalsIgnoreCase("Long[]")) {
-                return unsignedValue;
-            } else {
-                throw new Exception(field.getName() + " type dismatch");
-            }
+            return NumberCastUtil.cast(unsignedValue, typeName);
         }
     }
 

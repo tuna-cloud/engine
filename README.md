@@ -12,7 +12,7 @@ If you are using Maven just add the following dependency to your pom.xml:
 <dependency>
     <groupId>com.github.ioprotocol</groupId>
     <artifactId>com-github-ioprotocol</artifactId>
-    <version>1.0.2</version>
+    <version>1.2.0</version>
 </dependency>
 ```
 ## How to use it ?

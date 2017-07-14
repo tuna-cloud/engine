@@ -43,7 +43,7 @@ http://www.w3.org/2001/XMLSchema-instance ">
         <java.version.target>1.8</java.version.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <module.version>1.0.2</module.version>
+        <module.version>1.2.0</module.version>
     </properties>
 
     <dependencies>

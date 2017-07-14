@@ -45,12 +45,12 @@ public class TestShort {
 
         byte[] buf = null;
         long t1 = System.currentTimeMillis();
-        for(int i = 0; i < 100000; i++ ) {
+        for(int i = 0; i < 1000000; i++ ) {
             buf = TestEngine.encode(testShort);
         }
         long t2 = System.currentTimeMillis();
         System.out.println((t2-t1));
-        System.out.println((t2-t1)/100000d);
+        System.out.println((t2-t1)/1000000d);
     }
 
     public int getValue1() {
