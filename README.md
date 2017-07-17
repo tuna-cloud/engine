@@ -115,6 +115,7 @@ Please check the documention. There are lots of cool things you should know, inc
 - [More docs](https://github.com/ioprotocol/engine/blob/master/documention/howtouse.md)
 - [Changelog](https://github.com/ioprotocol/engine/blob/master/documention/changelog.md)
 - [Important note](https://github.com/ioprotocol/engine/blob/master/documention/important.md)
+- [Wiki](https://github.com/ioprotocol/engine/wiki/quick-start)
 
 ## Submit BUG
 While you find bug or have good idea, welcome email to me.
