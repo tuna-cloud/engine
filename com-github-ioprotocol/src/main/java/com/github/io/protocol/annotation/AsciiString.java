@@ -33,6 +33,7 @@ public @interface AsciiString {
 
     /**
      * The number array length.
+     * The value also support method name which return a Integer value.
      * @return The number array length. default value is 1.
      */
     String length() default "1";

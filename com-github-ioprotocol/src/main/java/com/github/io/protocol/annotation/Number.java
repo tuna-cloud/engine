@@ -91,6 +91,7 @@ public @interface Number {
 
     /**
      * The number array length. user define themself.
+     * The value also support method name which return a Integer value.
      *
      * @return The number array length. default value is 1.
      */
