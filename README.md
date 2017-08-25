@@ -47,7 +47,7 @@ public class ProtocolTest {
     @Number(width = 16, order = ByteOrder.BigEndian)
     private int contentLength;
     @AsciiString(length = "getContentLength")
-    private String asccString;
+    private String content;
 
     public int getHeader() {
         return header;
@@ -73,12 +73,12 @@ public class ProtocolTest {
         this.contentLength = contentLength;
     }
 
-    public String getAsccString() {
-        return asccString;
+    public String getContent() {
+        return content;
     }
 
-    public void setAsccString(String asccString) {
-        this.asccString = asccString;
+    public void setContent(String content) {
+        this.content = content;
     }
 }
 ```
@@ -92,7 +92,7 @@ public void test() throws Exception {
 	test.setHeader(0x2882);
 	test.setVersion(1);
 	test.setContentLength(12);
-	test.setAsccString("HELLO, WORLD");
+	test.setContent("HELLO, WORLD");
 
 	// we encode the ProtocolTest object to byte buffer.
 	byte[] buf = engine.encode(test);
@@ -105,17 +105,17 @@ public void test() throws Exception {
 
 	System.out.println(testDecode.toString());
 	// print msg:
-	// ProtocolTest{header=10370, version=1, contentLength=12, asccString='HELLO, WORLD'}
+	// ProtocolTest{header=10370, version=1, contentLength=12, content='HELLO, WORLD'}
 	// wow... is it work?
 }
 ```
 For more usage examples check the tests.
-Please check the documention. There are lots of cool things you should know, including information about connection pooling.
+Please check the documention. There are lots of cool things you should know.
 ## Documention
 - [More docs](https://github.com/ioprotocol/engine/blob/master/documention/howtouse.md)
 - [Changelog](https://github.com/ioprotocol/engine/blob/master/documention/changelog.md)
 - [Important note](https://github.com/ioprotocol/engine/blob/master/documention/important.md)
-- [Wiki](https://github.com/ioprotocol/engine/wiki/quick-start)
+- [Wiki](https://github.com/ioprotocol/engine/wiki)
 
 ## Submit BUG
 While you find bug or have good idea, welcome email to me.
